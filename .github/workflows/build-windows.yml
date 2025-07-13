@@ -34,7 +34,7 @@ jobs:
       run: |
         # 创建发布包
         mkdir -p release-package
-        copy "dist\考勤统计表生成工具.exe" "release-package\"
+        copy "dist\AttendanceSheetTool.exe" "release-package\"
         copy "README.md" "release-package\"
         copy "考勤表-上下班工时统计表*.xlsx" "release-package\" 2>$null || echo "No sample data files found"
         
@@ -44,7 +44,7 @@ jobs:
         name: attendance-sheet-tool-windows
         path: |
           release-package/
-          dist/考勤统计表生成工具.exe
+          dist/AttendanceSheetTool.exe
         retention-days: 30
         
     - name: Create Release
@@ -52,7 +52,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          release-package/考勤统计表生成工具.exe
+          release-package/AttendanceSheetTool.exe
           release-package/README.md
           release-package/*.xlsx
         tag_name: ${{ github.ref_name }}
@@ -61,7 +61,7 @@ jobs:
           ## 考勤统计表生成工具 v${{ github.ref_name }}
           
           ### 下载
-          - **考勤统计表生成工具.exe** - Windows可执行文件
+          - **AttendanceSheetTool.exe** - Windows可执行文件
           - **README.md** - 详细使用说明
           - **示例数据源文件** - 用于测试
           
