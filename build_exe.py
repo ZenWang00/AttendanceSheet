@@ -62,15 +62,15 @@ def build_exe():
     print(f"Current OS: {system}")
     
     if system == "Windows":
-        exe_name = "考勤统计表生成工具.exe"
+        exe_name = "AttendanceSheetTool.exe"
         exe_path = f"dist/{exe_name}"
     elif system == "Darwin":  # macOS
-        exe_name = "考勤统计表生成工具"
+        exe_name = "AttendanceSheetTool"
         exe_path = f"dist/{exe_name}"
         print("Note: Building on macOS, generating macOS executable")
         print("To run on Windows, rebuild on Windows system")
     else:  # Linux
-        exe_name = "考勤统计表生成工具"
+        exe_name = "AttendanceSheetTool"
         exe_path = f"dist/{exe_name}"
         print("Note: Building on Linux, generating Linux executable")
         print("To run on Windows, rebuild on Windows system")
@@ -112,11 +112,11 @@ def create_release_package():
     system = platform.system()
     
     if system == "Windows":
-        exe_name = "考勤统计表生成工具.exe"
+        exe_name = "AttendanceSheetTool.exe"
     elif system == "Darwin":  # macOS
-        exe_name = "考勤统计表生成工具"
+        exe_name = "AttendanceSheetTool"
     else:  # Linux
-        exe_name = "考勤统计表生成工具"
+        exe_name = "AttendanceSheetTool"
     
     # 创建发布目录
     release_dir = "release"
@@ -143,8 +143,9 @@ def create_release_package():
     # 复制示例数据源文件（如果存在）
     data_files = [f for f in os.listdir('.') if f.startswith('考勤表-上下班工时统计表') and f.endswith('.xlsx')]
     if data_files:
-        shutil.copy2(data_files[0], f"{release_dir}/{data_files[0]}")
-        print(f"OK Copied sample data file: {data_files[0]}")
+        # Use English filename for release package
+        shutil.copy2(data_files[0], f"{release_dir}/sample_data.xlsx")
+        print(f"OK Copied sample data file: sample_data.xlsx")
     
     print(f"\nSUCCESS Release package created! Location: {release_dir}/")
     return True
@@ -178,7 +179,7 @@ def main():
     
     if system == "Windows":
         print("\nRelease package contains:")
-        print("- 考勤统计表生成工具.exe (Windows executable)")
+        print("- AttendanceSheetTool.exe (Windows executable)")
         print("- README.md (usage instructions)")
         print("- Sample data source files (if exist)")
         print("\nUsage:")
@@ -189,7 +190,7 @@ def main():
         print(f"\nNote: Building on {system} system, generating {system} executable")
         print("To run on Windows, rebuild on Windows system")
         print("\nRelease package contains:")
-        print(f"- 考勤统计表生成工具 ({system} executable)")
+        print(f"- AttendanceSheetTool ({system} executable)")
         print("- README.md (usage instructions)")
         print("- Sample data source files (if exist)")
 
