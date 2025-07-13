@@ -69,7 +69,7 @@ def create_release(version, message=""):
     
     # 检查是否有未提交的更改
     if not run_command("git diff --quiet", "检查工作目录状态"):
-        print("⚠️  警告：有未提交的更改")
+        print("WARNING 警告：有未提交的更改")
         response = input("是否继续？(y/N): ")
         if response.lower() != 'y':
             return False
@@ -83,7 +83,7 @@ def create_release(version, message=""):
     if not run_command(f"git push origin {version}", "推送标签到远程仓库"):
         return False
     
-    print(f"\n✅ 版本 {version} 创建成功！")
+    print(f"\nSUCCESS 版本 {version} 创建成功！")
     print("CI将自动构建Windows exe文件")
     return True
 
@@ -124,7 +124,7 @@ def main():
     
     # 创建发布
     if create_release(new_version, message):
-        print(f"\n🎉 发布 {new_version} 成功！")
+        print(f"\nSUCCESS 发布 {new_version} 成功！")
         print("请等待几分钟，CI将自动构建exe文件")
         print("完成后可在GitHub Releases页面下载")
 

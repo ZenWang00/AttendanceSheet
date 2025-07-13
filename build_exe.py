@@ -37,19 +37,19 @@ def check_dependencies():
     # 检查PyInstaller
     try:
         import PyInstaller
-        print("✓ PyInstaller installed")
+        print("OK PyInstaller installed")
     except ImportError:
-        print("✗ PyInstaller not installed, installing...")
+        print("FAIL PyInstaller not installed, installing...")
         if not run_command("pip install pyinstaller", "Install PyInstaller"):
             print("Failed to install PyInstaller!")
             return False
     
     # 检查主程序文件
     if not os.path.exists("create_new_attendance_sheet.py"):
-        print("✗ Main program file not found: create_new_attendance_sheet.py")
+        print("FAIL Main program file not found: create_new_attendance_sheet.py")
         return False
     
-    print("✓ Main program file exists")
+    print("OK Main program file exists")
     return True
 
 def build_exe():
@@ -91,7 +91,7 @@ def build_exe():
     
     # 检查生成的文件
     if os.path.exists(exe_path):
-        print(f"\n✅ Build successful! Executable location: {exe_path}")
+        print(f"\nSUCCESS Build successful! Executable location: {exe_path}")
         
         # 显示文件大小
         size = os.path.getsize(exe_path)
@@ -100,7 +100,7 @@ def build_exe():
         
         return True
     else:
-        print(f"✗ Build failed, executable not found: {exe_path}")
+        print(f"FAIL Build failed, executable not found: {exe_path}")
         return False
 
 def create_release_package():
@@ -130,23 +130,23 @@ def create_release_package():
     
     if os.path.exists(exe_source):
         shutil.copy2(exe_source, exe_dest)
-        print(f"✓ Copied executable to: {exe_dest}")
+        print(f"OK Copied executable to: {exe_dest}")
     else:
-        print(f"✗ Executable not found: {exe_source}")
+        print(f"FAIL Executable not found: {exe_source}")
         return False
     
     # 复制README文件
     if os.path.exists("README.md"):
         shutil.copy2("README.md", f"{release_dir}/README.md")
-        print("✓ Copied README file")
+        print("OK Copied README file")
     
     # 复制示例数据源文件（如果存在）
     data_files = [f for f in os.listdir('.') if f.startswith('考勤表-上下班工时统计表') and f.endswith('.xlsx')]
     if data_files:
         shutil.copy2(data_files[0], f"{release_dir}/{data_files[0]}")
-        print(f"✓ Copied sample data file: {data_files[0]}")
+        print(f"OK Copied sample data file: {data_files[0]}")
     
-    print(f"\n✅ Release package created! Location: {release_dir}/")
+    print(f"\nSUCCESS Release package created! Location: {release_dir}/")
     return True
 
 def main():
@@ -156,17 +156,17 @@ def main():
     
     # 检查依赖
     if not check_dependencies():
-        print("\n❌ Dependency check failed, cannot continue build")
+        print("\nERROR Dependency check failed, cannot continue build")
         return
     
     # 构建exe文件
     if not build_exe():
-        print("\n❌ Build failed")
+        print("\nERROR Build failed")
         return
     
     # 创建发布包
     if not create_release_package():
-        print("\n❌ Failed to create release package")
+        print("\nERROR Failed to create release package")
         return
     
     print("\n" + "="*50)

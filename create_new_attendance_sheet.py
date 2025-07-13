@@ -86,7 +86,7 @@ def test_time_calculation():
     
     for check_in, check_out, expected, description in test_cases:
         result = calculate_work_hours(check_in, check_out)
-        status = "✓" if abs(result - expected) < 0.01 else "✗"
+        status = "OK" if abs(result - expected) < 0.01 else "FAIL"
         print(f"{status} {description}: 签到{check_in} 签退{check_out} -> {result:.2f}小时 (期望{expected:.2f}小时)")
     
     print("=== 测试完成 ===")
@@ -464,9 +464,9 @@ def main():
     )
     
     if result:
-        print(f"\n✅ 处理完成！输出文件：{result}")
+        print(f"\nSUCCESS 处理完成！输出文件：{result}")
     else:
-        print("\n❌ 处理失败！")
+        print("\nERROR 处理失败！")
         sys.exit(1)
 
 if __name__ == "__main__":
