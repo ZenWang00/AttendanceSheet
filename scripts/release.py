@@ -14,7 +14,7 @@ def run_command(cmd, description=""):
     """运行命令并显示结果"""
     if description:
         print(f"\n{description}")
-    print(f"Executing: {cmd}")
+    # Don't print command to avoid encoding issues
     
     try:
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
