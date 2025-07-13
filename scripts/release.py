@@ -14,17 +14,17 @@ def run_command(cmd, description=""):
     """运行命令并显示结果"""
     if description:
         print(f"\n{description}")
-    print(f"执行: {cmd}")
+    print(f"Executing: {cmd}")
     
     try:
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
         if result.stdout:
-            print("输出:", result.stdout)
+            print("Output:", result.stdout)
         if result.stderr:
-            print("错误:", result.stderr)
+            print("Error:", result.stderr)
         return result.returncode == 0
     except Exception as e:
-        print(f"执行失败: {e}")
+        print(f"Execution failed: {e}")
         return False
 
 def get_current_version():

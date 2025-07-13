@@ -12,21 +12,21 @@ import os
 def run_command(cmd, description):
     """运行命令并显示结果"""
     print(f"\n{'='*50}")
-    print(f"执行: {description}")
-    print(f"命令: {cmd}")
+    print(f"Executing: {description}")
+    print(f"Command: {cmd}")
     print('='*50)
     
     try:
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-        print("输出:")
+        print("Output:")
         print(result.stdout)
         if result.stderr:
-            print("错误:")
+            print("Error:")
             print(result.stderr)
-        print(f"返回码: {result.returncode}")
+        print(f"Return code: {result.returncode}")
         return result.returncode == 0
     except Exception as e:
-        print(f"执行失败: {e}")
+        print(f"Execution failed: {e}")
         return False
 
 def main():
