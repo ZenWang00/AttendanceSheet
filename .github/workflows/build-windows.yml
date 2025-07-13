@@ -8,6 +8,10 @@ on:
   release:
     types: [published]  # 当发布release时触发
 
+permissions:
+  contents: write  # 允许写入仓库内容（创建Release）
+  packages: write  # 允许上传包
+
 jobs:
   build:
     runs-on: windows-latest  # 使用Windows环境
