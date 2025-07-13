@@ -146,6 +146,8 @@ def create_release_package():
         # Use English filename for release package
         shutil.copy2(data_files[0], f"{release_dir}/sample_data.xlsx")
         print(f"OK Copied sample data file: sample_data.xlsx")
+    else:
+        print("Note: No sample data files found, skipping data file copy")
     
     print(f"\nSUCCESS Release package created! Location: {release_dir}/")
     return True
