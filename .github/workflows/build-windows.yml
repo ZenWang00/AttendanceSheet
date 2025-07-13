@@ -1,0 +1,81 @@
+name: Build Windows Executable
+
+on:
+  push:
+    tags:
+      - 'v*'  # 当推送版本标签时触发
+  workflow_dispatch:  # 允许手动触发
+  release:
+    types: [published]  # 当发布release时触发
+
+jobs:
+  build:
+    runs-on: windows-latest  # 使用Windows环境
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Build executable
+      run: |
+        python build_exe.py
+        
+    - name: Create release package
+      run: |
+        # 创建发布包
+        mkdir -p release-package
+        copy "dist\考勤统计表生成工具.exe" "release-package\"
+        copy "README.md" "release-package\"
+        copy "考勤表-上下班工时统计表*.xlsx" "release-package\" 2>$null || echo "No sample data files found"
+        
+    - name: Upload release assets
+      uses: actions/upload-artifact@v4
+      with:
+        name: attendance-sheet-tool-windows
+        path: |
+          release-package/
+          dist/考勤统计表生成工具.exe
+        retention-days: 30
+        
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          release-package/考勤统计表生成工具.exe
+          release-package/README.md
+          release-package/*.xlsx
+        tag_name: ${{ github.ref_name }}
+        name: Release ${{ github.ref_name }}
+        body: |
+          ## 考勤统计表生成工具 v${{ github.ref_name }}
+          
+          ### 下载
+          - **考勤统计表生成工具.exe** - Windows可执行文件
+          - **README.md** - 详细使用说明
+          - **示例数据源文件** - 用于测试
+          
+          ### 使用方法
+          1. 下载并解压文件
+          2. 将数据源文件放在exe文件同目录
+          3. 双击运行或使用命令行
+          
+          ### 系统要求
+          - Windows 10/11
+          - 无需安装Python环境
+          
+          ### 更新日志
+          - 自动时间计算（同一天和跨天工作）
+          - 支持闰年处理
+          - 数据缺失自动标记
+          - 命令行参数支持 
