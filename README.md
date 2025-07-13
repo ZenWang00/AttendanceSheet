@@ -353,6 +353,23 @@ pyinstaller --onefile --name "考勤统计表生成工具" create_new_attendance
 
 **注意**：要在Windows上运行，必须在Windows系统上构建exe文件。
 
+#### 使用GitHub CI自动构建（推荐）
+项目配置了GitHub Actions，可以自动构建Windows exe文件：
+
+1. **推送版本标签触发构建**：
+   ```bash
+   python scripts/release.py patch  # 创建补丁版本
+   ```
+
+2. **手动触发构建**：
+   - 在GitHub仓库页面进入 Actions 标签
+   - 选择 "Build Windows Executable" 工作流
+   - 点击 "Run workflow" 手动触发
+
+3. **下载构建结果**：
+   - 构建完成后在 Releases 页面下载
+   - 或从 Actions 页面下载构建产物
+
 ## 许可证
 
 本项目仅供内部使用。
