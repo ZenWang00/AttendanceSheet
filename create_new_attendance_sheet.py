@@ -86,7 +86,7 @@ def test_time_calculation():
     
     for check_in, check_out, expected, description in test_cases:
         result = calculate_work_hours(check_in, check_out)
-        status = "OK" if abs(result - expected) < 0.01 else "FAIL"
+        status = "✓" if abs(result - expected) < 0.01 else "✗"
         print(f"{status} {description}: 签到{check_in} 签退{check_out} -> {result:.2f}小时 (期望{expected:.2f}小时)")
     
     print("=== 测试完成 ===")
@@ -160,7 +160,7 @@ def create_new_attendance_sheet(source_file=None, output_file=None, year=None, m
     
     # 读取原始数据获取员工信息
     try:
-        df_original = pd.read_excel(source_file, sheet_name='考勤统计', header=[5, 6])
+        df_original = pd.read_excel(source_file, sheet_name='月度汇总', header=[5, 6])
         df_punch = pd.read_excel(source_file, sheet_name='打卡时间', header=[2, 3])
     except Exception as e:
         print(f"错误：读取Excel文件失败 - {e}")
@@ -464,9 +464,9 @@ def main():
     )
     
     if result:
-        print(f"\nSUCCESS 处理完成！输出文件：{result}")
+        print(f"\n✅ 处理完成！输出文件：{result}")
     else:
-        print("\nERROR 处理失败！")
+        print("\n❌ 处理失败！")
         sys.exit(1)
 
 if __name__ == "__main__":
